@@ -1,4 +1,4 @@
-// script.js
+// this script is for the text-to-speech so you click on the icon for start and click again for stop
 
 document.addEventListener("DOMContentLoaded", function() {
     let isSpeaking = false; // Variable to track whether speech synthesis is in progress
