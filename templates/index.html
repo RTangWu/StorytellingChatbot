@@ -31,9 +31,6 @@
                         <span class="text-to-speak">{{ item.text }}</span>
                         <i class="fas fa-volume-up speak-icon animate__animated animate__pulse"></i>
                         {% endif %}
-
-                    
-                    
                     </div>
                 </div>
             {% endfor %}
@@ -54,11 +51,21 @@
             <input type="hidden" name="chat_history" value="{{ item.speaker }},{{ item.text }}">
         {% endfor %}
     </form>
-    
+
+    {% if error_message %}
+    <div class="error-message-container custom-width">
+        <div id="error-msg" class="mt-4 alert alert-danger">
+            {{ error_message }}
+        </div>
+    </div>
+    {% endif %}
+
     {% if quit_msg %}
+    <div class="quit-msg-container custom-width">
         <div id="quit-msg" class="mt-4 alert alert-danger">
             {{ quit_msg }}
         </div>
+    </div>
     {% endif %}
 
 </body>

@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from better_profanity import profanity
 import requests
 
 app = Flask(__name__)
@@ -12,26 +13,30 @@ def query_model(prompt):
     response = requests.post(API_URL, headers=headers, json=payload)
     return response.json()
 
-
 @app.route("/", methods=["GET", "POST"])
 def chat():
     if request.method == "GET":
         return render_template("index.html", chat_history=[])
     elif request.method == "POST":
         user_input = request.form["user_input"].strip().lower()
+
+        # Check for swear words in user input
+        if profanity.contains_profanity(user_input):
+            return render_template("index.html", chat_history=[], error_message="We don't accept inappropriate language. Please input again.")
+
         chat_history = []
-        
+
         # Retrieve chat history from form and reconstruct it as a list of dictionaries
         chat_history_str = request.form.getlist("chat_history")
         for entry in chat_history_str:
             speaker, text = entry.split(",", 1)
             chat_history.append({"speaker": speaker, "text": text})
-        
+
         if user_input == 'quit':
             return render_template("index.html", quit_msg="Chatbot: Goodbye!")
-        
+
         chat_history.append({"speaker": "user", "text": user_input})  # Add user input to chat history
-        
+
         if user_input == 'continue':
             if len(chat_history) >= 2:  # Ensure there's enough history to continue
                 response = query_model(chat_history[-2]["text"])  # Retrieve last user input
@@ -42,7 +47,7 @@ def chat():
                 return render_template("index.html", chat_history=chat_history)
             else:
                 return render_template("index.html", chat_history=[{"speaker": "chatbot", "text": "There's no story to continue. Please start a story first."}])
-        
+
         else:
             if user_input.startswith("tell me a story about "):
                 prompt = user_input
