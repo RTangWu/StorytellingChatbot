@@ -60,10 +60,17 @@ body {
 
 .card-body {
     flex-grow: 1; 
-    
+    font-size: inherit !important;
+    font-size: var(--font-size);
 }
 
 
+.settings-button-container {
+    position: fixed; 
+    top: 20px; 
+    left: 20px; 
+    z-index: 9999; 
+}
 
 /* Popup Form Styles */
 .popup-form {
@@ -101,7 +108,14 @@ body {
     cursor: pointer;
 }
 
+.popup-content {
+    max-width: 300px; /* Set maximum width for the settings popup */
+    overflow: auto; /* Enable horizontal scrolling if content exceeds the width */
+}
 
+#voiceSelect {
+    width: 100%; /* Set voice selection dropdown width to fill the container */
+}
 
 
 

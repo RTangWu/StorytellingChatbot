@@ -6,55 +6,20 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-
-</head>
-<script>
-    function openSettingsPopup() {
-        document.getElementById('settingsPopup').style.display = 'block';
-    }
-
-    function closeSettingsPopup() {
-        document.getElementById('settingsPopup').style.display = 'none';
-    }
-    function applySettings() {
-    var bgColor = document.getElementById('bgColor').value;
-    var fontSize = document.getElementById('fontSize').value + 'px';
-    document.body.style.backgroundColor = bgColor;
-    document.body.style.fontSize = fontSize;
-
-    // Store selected background color in local storage
-    localStorage.setItem('bgColor', bgColor);
-    localStorage.setItem('fontSize', fontSize);
-
-    closeSettingsPopup(); // Close the popup after applying settings
-}
-document.addEventListener("DOMContentLoaded", function() {
-    // Retrieve stored background color from local storage
-    var storedBgColor = localStorage.getItem('bgColor');
-    if (storedBgColor) {
-        document.body.style.backgroundColor = storedBgColor;
-    }
-
-    // Retrieve stored font size from local storage
-    var storedFontSize = localStorage.getItem('fontSize');
-    if (storedFontSize) {
-        document.body.style.fontSize = storedFontSize;
-    }
-
-    // Other initialization code
-});
-
-</script>
+    <script src="{{ url_for('static', filename='voice.js') }}"></script>
+    <script src="{{ url_for('static', filename='settings.js') }}"></script>
+</head> 
 <body>
+    <div class="settings-button-container">
+        <button class="btn btn-secondary" onclick="openSettingsPopup()">Settings</button>
+    </div>
+
+    <!-- Rest of your HTML content -->
     <div class="heading-container custom-width">
         <div class="row justify-content-between align-items-center">
             <div class="col">
                 <h1 class="custom-heading">Welcome to the storytelling Chatbot</h1>
                 <hr class="custom-line"> <!-- Horizontal line -->
-            </div>
-            <div class="col-auto">
-                <button class="btn btn-secondary" onclick="openSettingsPopup()">Settings</button>
             </div>
         </div>
     </div>
@@ -66,11 +31,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 <label for="bgColor">Background Color:</label>
                 <input type="color" id="bgColor" name="bgColor"><br><br>
                 <label for="fontSize">Font Size:</label>
-                <input type="range" id="fontSize" name="fontSize" min="8" max="24"><br><br>
+                <input type="range" id="fontSize" name="fontSize" min="12" max="19"><br><br>
+                <label for="voiceSelect">Voice:</label>
+                <select id="voiceSelect"></select><br><br> <!-- Add voice selection dropdown -->
                 <button type="button" onclick="applySettings()">Apply</button>
+                <button type="button" onclick="setDefault()">Reset to Default</button>
             </form>
         </div>
     </div>
+    
+    
+    
+    
 
     {% if chat_history %}
     <div class="container custom-width">
@@ -121,6 +93,17 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
     </div>
     {% endif %}
+    <script>
+        // Function to scroll to the bottom of the page
+        function scrollToBottom() {
+            window.scrollTo(0, document.body.scrollHeight);
+        }
 
+        // Scroll to bottom when the page finishes loading
+        window.onload = function() {
+            scrollToBottom();
+        };
+    </script>
 </body>
+
 </html>
