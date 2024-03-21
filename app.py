@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
 from better_profanity import profanity
 import requests
-
+import re
+import random
 
 app = Flask(__name__)
 
@@ -14,7 +15,25 @@ def query_model(prompt):
     return response.json()
 
 
+def generate_prompt(user_input):
 
+    prompt_templates = [
+        "Tell me a story about {}.",
+        "I want to hear a story about {}.",
+        "Can you tell me about a story related to {}?"
+    ]
+    
+
+    keywords = re.findall(r'\b(?:tell me a story about|story about|related to)\s+(\w+)\b', user_input.lower())
+    if keywords:
+        keyword = keywords[0]  
+
+        prompt = random.choice(prompt_templates).format(keyword)
+    else:
+
+        prompt = "Tell me a story about " + user_input + "."
+    
+    return prompt
 
 @app.route("/", methods=["GET", "POST"])
 def chat():
@@ -53,10 +72,7 @@ def chat():
 
         else:
 
-            if user_input.startswith("tell me a story about "):
-                prompt = user_input
-            else:
-                prompt = "Tell me a story about " + user_input + "."
+            prompt = generate_prompt(user_input)
             response = query_model(prompt)
             generated_text = response[0]["generated_text"] if response else "I'm sorry, I couldn't generate a response."
             if not user_input.startswith("tell me a story about "):
