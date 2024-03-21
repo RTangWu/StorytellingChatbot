@@ -1,5 +1,3 @@
-// customize colour, the font size and voice
-
 document.addEventListener("DOMContentLoaded", function() {
     var storedBgColor = localStorage.getItem('bgColor');
     var storedFontSize = localStorage.getItem('fontSize');
@@ -116,7 +114,7 @@ function updateBgColorInput(value) {
         document.getElementById("guidePopup").style.display = "block";
     }
     
-    // JavaScript Function to Close Guide Popup
+
     function closeGuidePopup() {
         document.getElementById("guidePopup").style.display = "none";
     }

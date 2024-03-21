@@ -85,11 +85,11 @@ body {
     margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
-    max-width: 600px; /* Increase the maximum width */
-    width: 80%; /* Adjust the width as needed */
-    height: auto; /* Set height to auto for dynamic sizing */
-    max-height: 80%; /* Limit maximum height */
-    overflow-y: auto; /* Enable vertical scrolling if needed */
+    max-width: 600px; 
+    width: 80%; 
+    height: auto; 
+    max-height: 80%; 
+    overflow-y: auto; 
 }
 
 .close {
@@ -106,7 +106,7 @@ body {
     cursor: pointer;
 }
 
-/* Additional Styles */
+
 .popup-form h2 {
     margin-top: 0;
 }

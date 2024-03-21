@@ -17,26 +17,32 @@ def query_model(prompt):
 
 def generate_prompt(user_input):
     prompt_templates = [
-        "Tell me a story about {}.",
-        "I want to hear a story about {}.",
-        "Can you tell me about a story related to {}?"
+        "Tell me a {} story about {} and {}.",
+        "I want to hear a {} story about {} and {}.",
+        "Can you tell me about a {} story related to {} and {}?"
     ]
     
-    # Extract topic and character name from user input
-    topic_match = re.match(r'\b(?:tell me a story about|story about|related to)\s+(\w+)\b', user_input.lower())
-    character_match = re.match(r'\b(?:tell me a story about|story about|related to)\s+(\w+)\s+and\s+(\w+)\b', user_input.lower())
+    # Extract topic, character name, and story type from user input
+    topic_match = re.match(r'\b(?:tell me a|story about|related to)\s+(\w+)\b', user_input.lower())
+    character_match = re.match(r'\b(?:tell me a|story about|related to)\s+(\w+)\s+and\s+(\w+)\b', user_input.lower())
+    story_type_match = re.match(r'\b(?:tell me a|story about|related to)\s+(\w+)\s+(adventure|romantic|mystery)\b', user_input.lower())
     
-    if character_match:
+    if story_type_match:
+        topic = story_type_match.group(1)
+        story_type = story_type_match.group(2)
+        prompt = random.choice(prompt_templates).format(story_type, topic, "someone")
+    elif character_match:
         topic = character_match.group(1)
         character = character_match.group(2)
         prompt = f"Tell me a story about {topic} and {character}."
     elif topic_match:
         topic = topic_match.group(1)
-        prompt = random.choice(prompt_templates).format(topic)
+        prompt = random.choice(prompt_templates).format("interesting", topic, "someone")
     else:
         prompt = "Create me a story about " + user_input + "."
     
     return prompt
+
 
 
 @app.route("/", methods=["GET", "POST"])
