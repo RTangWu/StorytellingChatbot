@@ -16,24 +16,28 @@ def query_model(prompt):
 
 
 def generate_prompt(user_input):
-
     prompt_templates = [
         "Tell me a story about {}.",
         "I want to hear a story about {}.",
         "Can you tell me about a story related to {}?"
     ]
     
-
-    keywords = re.findall(r'\b(?:tell me a story about|story about|related to)\s+(\w+)\b', user_input.lower())
-    if keywords:
-        keyword = keywords[0]  
-
-        prompt = random.choice(prompt_templates).format(keyword)
+    # Extract topic and character name from user input
+    topic_match = re.match(r'\b(?:tell me a story about|story about|related to)\s+(\w+)\b', user_input.lower())
+    character_match = re.match(r'\b(?:tell me a story about|story about|related to)\s+(\w+)\s+and\s+(\w+)\b', user_input.lower())
+    
+    if character_match:
+        topic = character_match.group(1)
+        character = character_match.group(2)
+        prompt = f"Tell me a story about {topic} and {character}."
+    elif topic_match:
+        topic = topic_match.group(1)
+        prompt = random.choice(prompt_templates).format(topic)
     else:
-
-        prompt = "Tell me a story about " + user_input + "."
+        prompt = "Create me a story about " + user_input + "."
     
     return prompt
+
 
 @app.route("/", methods=["GET", "POST"])
 def chat():
