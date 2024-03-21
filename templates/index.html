@@ -23,6 +23,29 @@
             </div>
         </div>
     </div>
+
+    <div id="guidePopup" class="popup-form">
+        <div class="popup-content">
+            <span class="close" onclick="closeGuidePopup()">&times;</span>
+            <h5>Guide: How to Use the Storytelling Chatbot</h5>
+            <p>Welcome to the Storytelling Chatbot! Here's a step-by-step guide on how to use it:</p>
+            <ol>
+                <li>Type your message or query in the input field labeled "Chat to storytelling chatbot here...".</li>
+                <li>Press the "Send" button to submit your message to the chatbot.</li>
+                <li>Wait for the chatbot's response. It will provide you with a story or answer based on your input.</li>
+                <li>If you want to exit the chat at any time, simply type "quit" and press send. The chatbot will bid you farewell.</li>
+                <li>If the chatbot provides a partial story and prompts you to continue, type "continue" and press send. The chatbot will generate the next part of the story.</li>
+                <li>To guide the story, use phrases like "tell me a story about [topic]" or "story about [topic]". The chatbot will ask for further details to tailor the story.</li>
+                <li><strong>Customized Stories:</strong> When you provide both a topic and a character name, the chatbot creates a story that incorporates both. For example, typing "dog Jason" will result in a story about the dog(Jason).</li>
+                <li>Follow any additional instructions provided by the chatbot during the conversation, such as providing input for specific prompts or questions.</li>
+                <li>Enjoy the storytelling experience with the chatbot!</li>
+            </ol>
+        </div>
+    </div>
+    
+
+
+
     <div id="settingsPopup" class="popup-form">
         <div class="popup-content">
             <span class="close" onclick="closeSettingsPopup()">&times;</span>
@@ -50,7 +73,7 @@
                         {% elif item.speaker == 'chatbot' %}
                         <strong class="text-light-green">Chatbot: </strong>
                         <span class="text-to-speak">{{ item.text }}</span>
-                        <i class="click fas fa-volume-up speak-icon animate__animated animate__pulse"></i>
+                        <i class="click fas fa-volume-up speak-icon animate__animated animate__pulse" title="Read the story"></i>
                         {% endif %}
                     </div>
                 </div>
@@ -62,9 +85,14 @@
         <div class="row justify-content-center"> 
             <div class="col-0" onmouseover="showClickMode()" style="padding-top: 6px;">
                 <div class="click">
-                    <i class="fas fa-cog" onclick="openSettingsPopup()" style="color: #000000; font-size: 24px;"></i>
+                    <i class="fas fa-cog" onclick="openSettingsPopup()" style="color: #000000; font-size: 24px;" title="Setting"></i>
                 </div>
             </div>
+            <div class="col-1" onmouseover="showClickMode()" style="padding-top: 6px;">
+                <div class="click">
+                    <i class="fas fa-question-circle" onclick="openGuidePopup()" style="color: #000000; font-size: 24px;" title="Guide"></i>
+                </div>
+            </div>            
             <div class="col-9">
                 <input type="text" id="user_input" name="user_input" class="form-control " placeholder="Chat to storytelling chatbot here....">
             </div>

@@ -109,3 +109,14 @@ function updateBgColorInput(value) {
         });
         document.dispatchEvent(event);
     }
+
+
+
+    function openGuidePopup() {
+        document.getElementById("guidePopup").style.display = "block";
+    }
+    
+    // JavaScript Function to Close Guide Popup
+    function closeGuidePopup() {
+        document.getElementById("guidePopup").style.display = "none";
+    }

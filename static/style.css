@@ -85,8 +85,11 @@ body {
     margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 50%;
-    max-width: 400px;
+    max-width: 600px; /* Increase the maximum width */
+    width: 80%; /* Adjust the width as needed */
+    height: auto; /* Set height to auto for dynamic sizing */
+    max-height: 80%; /* Limit maximum height */
+    overflow-y: auto; /* Enable vertical scrolling if needed */
 }
 
 .close {
@@ -103,9 +106,13 @@ body {
     cursor: pointer;
 }
 
-.popup-content {
-    max-width: 300px; 
-    overflow: auto; 
+/* Additional Styles */
+.popup-form h2 {
+    margin-top: 0;
+}
+
+.popup-form p {
+    margin-bottom: 0;
 }
 
 #voiceSelect {
