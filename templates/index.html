@@ -10,11 +10,7 @@
     <script src="{{ url_for('static', filename='settings.js') }}"></script>
 </head> 
 <body>
-    
-    
-    
 
-   
     <div class="heading-container custom-width">
         <div class="row justify-content-between align-items-center">
             <div class="col">
@@ -23,6 +19,21 @@
             </div>
         </div>
     </div>
+    {% if quit_msg %}
+    <div class="quit-msg-container custom-width">
+        <div id="quit-msg" class="mt-4 alert alert-danger">
+            {{ quit_msg }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if error_message %}
+    <div class="error-message-container custom-width">
+        <div id="error-msg" class="mt-4 alert alert-danger">
+            {{ error_message }}
+        </div>
+    </div>
+    {% endif %}
 
     <div id="guidePopup" class="popup-form">
         <div class="popup-content">
@@ -30,22 +41,16 @@
             <h5>Guide: How to Use the Storytelling Chatbot</h5>
             <p>Welcome to the Storytelling Chatbot! Here's a step-by-step guide on how to use it:</p>
             <ol>
-                <li>Type your message or query in the input field labeled "Chat to storytelling chatbot here...".</li>
+                <li>Type your message or query in the input field labelled "Chat to storytelling chatbot here...".</li>
                 <li>Press the "Send" button to submit your message to the chatbot.</li>
                 <li>Wait for the chatbot's response. It will provide you with a story or answer based on your input.</li>
-                <li>If you want to exit the chat at any time, simply type "quit" and press send. The chatbot will bid you farewell.</li>
+                <li>If you want to exit the chat anytime, type "quit" and press send. The chatbot will bid you farewell.</li>
                 <li>If the chatbot provides a partial story and prompts you to continue, type "continue" and press send. The chatbot will generate the next part of the story.</li>
-                <li>To guide the story, use phrases like "tell me a story about [topic]" or "story about [topic]". The chatbot will ask for further details to tailor the story.</li>
-                <li><strong>Customized Stories:</strong> When you provide both a topic, a character name and kind of story, the chatbot creates a story that incorporates both. For example, typing "dog,Jason,romantic " will result will romantic story about dog(Jason).</li>
-                <li>Also the chatbot can do others which provide the topic and kind of story or just the topic name</li>
                 <li>Follow any additional instructions provided by the chatbot during the conversation, such as providing input for specific prompts or questions.</li>
                 <li>Enjoy the storytelling experience with the chatbot!</li>
             </ol>
         </div>
     </div>
-    
-
-
 
     <div id="settingsPopup" class="popup-form">
         <div class="popup-content">
@@ -63,25 +68,34 @@
             </form>
         </div>
     </div>
-    {% if chat_history %}
+
+
     <div class="container custom-width">
         <div id="content">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <strong class="text-light-green">Chatbot: </strong>
+                    <span class="text-to-speak">{{ questions[0] }}</span>
+                    <i class="click fas fa-volume-up speak-icon animate__animated animate__pulse" title="Read the text"></i>
+                </div>
+            </div>
             {% for item in chat_history %}
                 <div class="card mb-3 {% if item.speaker == 'user' %}text-right{% endif %} {% if item.speaker == 'user' %}bg-light{% endif %}">
                     <div class="card-body">
                         {% if item.speaker == 'user' %}
-                        {{ item.text }}<strong class="text-primary"> :You</strong>
+                            {{ item.text }}<strong class="text-primary"> :You</strong>
                         {% elif item.speaker == 'chatbot' %}
-                        <strong class="text-light-green">Chatbot: </strong>
-                        <span class="text-to-speak">{{ item.text }}</span>
-                        <i class="click fas fa-volume-up speak-icon animate__animated animate__pulse" title="Read the story"></i>
+                            <strong class="text-light-green">Chatbot: </strong>
+                            <span class="text-to-speak">{{ item.text }}</span>
+                            <i class="click fas fa-volume-up speak-icon animate__animated animate__pulse" title="Read the text"></i>
                         {% endif %}
                     </div>
                 </div>
             {% endfor %}
         </div>
     </div>
-    {% endif %}
+    
+        
     <form method="post" id="input-form" class="fixed-form custom-width"> 
         <div class="row justify-content-center"> 
             <div class="col-0" onmouseover="showClickMode()" style="padding-top: 6px;">
@@ -91,7 +105,7 @@
             </div>
             <div class="col-1" onmouseover="showClickMode()" style="padding-top: 6px;">
                 <div class="click">
-                    <i class="fas fa-question-circle" onclick="openGuidePopup()" style="color: #000000; font-size: 24px;" title="Guide"></i>
+                    <i class="fas fa-question-circle" onclick="openGuidePopup()" style="color: #000000; font-size: 24px;" title="Read Me!"></i>
                 </div>
             </div>            
             <div class="col-9">
@@ -105,20 +119,8 @@
             <input type="hidden" name="chat_history" value="{{ item.speaker }},{{ item.text }}">
         {% endfor %}
     </form>
-    {% if error_message %}
-    <div class="error-message-container custom-width">
-        <div id="error-msg" class="mt-4 alert alert-danger">
-            {{ error_message }}
-        </div>
-    </div>
-    {% endif %}
-    {% if quit_msg %}
-    <div class="quit-msg-container custom-width">
-        <div id="quit-msg" class="mt-4 alert alert-danger">
-            {{ quit_msg }}
-        </div>
-    </div>
-    {% endif %}
+ 
+
     <script>
         function scrollToBottom() {
             window.scrollTo(0, document.body.scrollHeight);
