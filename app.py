@@ -47,7 +47,7 @@ def chat():
 
         if profanity.contains_profanity(user_input):
             answers = []
-            return render_template("index.html", chat_history=[], questions=questions, error_message="We don't accept inappropriate language. Conversation reset. Please input again.")
+            return render_template("index.html", chat_history=[], questions=questions, swear_word="We don't accept inappropriate language. Conversation reset. Please input again.")
 
         if user_input == 'quit':
             answers = []
@@ -62,7 +62,6 @@ def chat():
             if len(chat_history) >= 2:
                 response = query_model(chat_history[-2]["text"])
                 generated_text = response[0]["generated_text"] if response else "I'm sorry, I couldn't generate a response."
-                # Remove the prompt from the generated text
                 generated_text = generated_text.replace(chat_history[-2]["text"], "").strip()
                 chat_history.append({"speaker": "chatbot", "text": generated_text})
             return render_template("index.html", chat_history=chat_history, questions=questions)
@@ -85,8 +84,8 @@ def chat():
                 if user_input.lower() == 'continue':
                     chat_history.append({"speaker": "user", "text": user_input})
                 else:
-                    answers = []
-                    return render_template("index.html", chat_history=[], questions=questions, error_message="Invalid input. Conversation reset.")
+                    return render_template("index.html", chat_history=chat_history, questions=questions, error_message="Invalid input. If you want to start a new chat, Please type 'quit' into the chatbot.")
+
 
         chat_history_display = [entry for entry in chat_history if entry['speaker'] == 'user' or not is_chatbot_prompt(entry['text'])]
 

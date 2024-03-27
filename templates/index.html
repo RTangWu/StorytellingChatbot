@@ -26,11 +26,10 @@
         </div>
     </div>
     {% endif %}
-
-    {% if error_message %}
+    {% if swear_word %}
     <div class="error-message-container custom-width">
         <div id="error-msg" class="mt-4 alert alert-danger">
-            {{ error_message }}
+            {{ swear_word }}
         </div>
     </div>
     {% endif %}
@@ -94,7 +93,15 @@
             {% endfor %}
         </div>
     </div>
-    
+<div class="alert-message">
+    {% if error_message %}
+    <div class="error-message-container custom-width">
+        <div id="error-msg" class="mt-4 alert alert-danger">
+            {{ error_message }}
+        </div>
+    </div>
+    {% endif %}
+</div>
         
     <form method="post" id="input-form" class="fixed-form custom-width"> 
         <div class="row justify-content-center"> 
