@@ -1,9 +1,10 @@
+//This function is allow the user to custom the background colour, font size, and the voice
 document.addEventListener("DOMContentLoaded", function() {
     var storedBgColor = localStorage.getItem('bgColor');
     var storedFontSize = localStorage.getItem('fontSize');
     var storedVoice = localStorage.getItem('selectedVoice');
     
-
+// Saving all the setting to the local so next time open again will kkep using the setting
     if (storedBgColor) {
         document.body.style.backgroundColor = storedBgColor;
         document.getElementById('bgColor').value = storedBgColor; 
@@ -30,6 +31,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+
+// This function use to open and close the setting pop up page
 function openSettingsPopup() {
     document.getElementById('settingsPopup').style.display = 'block';
 }
@@ -38,6 +41,7 @@ function closeSettingsPopup() {
     document.getElementById('settingsPopup').style.display = 'none';
 }
 
+// Make sure when you open the setting page then inside the button etc is match to the local saving setting
 function applySettings() {
     var bgColor = document.getElementById('bgColor').value;
     var fontSize = document.getElementById('fontSize').value + 'px';
@@ -56,9 +60,7 @@ function applySettings() {
     closeSettingsPopup(); 
 }
 
-
-
-
+// This use to update background colour when is changed
 function updateBgColorInput(value) {
         document.getElementById('bgColor').value = value;
     }
@@ -69,7 +71,7 @@ function updateBgColorInput(value) {
     });
 
 
-
+// This function is used to delete all the custom setting and change to the default setting
     function setDefault() {
 
         document.getElementById('bgColor').value = '#f0f0f0'; 
@@ -85,6 +87,7 @@ function updateBgColorInput(value) {
     }
 
 
+// Those functions is used for when the mouse is move to icon can show the click mode on the icon
 
     function showClickMode() {
         document.body.classList.add('click-mode');
@@ -109,7 +112,7 @@ function updateBgColorInput(value) {
     }
 
 
-
+// This use to open and close the read me pop up page
     function openGuidePopup() {
         document.getElementById("guidePopup").style.display = "block";
     }

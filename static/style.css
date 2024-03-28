@@ -1,16 +1,22 @@
+/* Global Styles */
 body {
     background-color: #f0f0f0; 
 }
 
+/* Set width to 60% and center horizontally */
 .custom-width {
     width: 60%; 
     margin-left: auto;
     margin-right: auto;
     max-width: 60%;
 }
+
+/* Add space below alert messages */
 .alert-message {
     margin-bottom: 100px;
 }
+
+/* Heading Container Styles */
 .heading-container {
     background-color: #ffffff;
     padding: 18px;
@@ -20,6 +26,7 @@ body {
     text-align: center;
 }
 
+/* Normal Container Styles */
 .container {
     background-color: #ffffff; 
     padding: 20px; 
@@ -29,14 +36,17 @@ body {
     align-items: center; 
 }
 
+/* Text Color Styles */
 .text-light-green {
     color: rgb(5, 127, 5);
 }
 
+/* Center text within forms */
 .custom-form {
     text-align: center;
 }
 
+/* Fixed Position Form at Bottom */
 .fixed-form {
     position: fixed;
     bottom: 20px; 
@@ -53,20 +63,24 @@ body {
     padding: 1%;
 }
 
+/* Card Styles */
 .card {
-      
     min-width: 100%;
 }
 
+/* Card Body Styles */
 .card-body {
     flex-grow: 1; 
     font-size: inherit !important;
     font-size: var(--font-size);
 }
+
+/* Cursor Style */
 .click {
     cursor: pointer !important; 
 }
 
+/* Popup Form Styles */
 .popup-form {
     display: none;
     position: fixed;
@@ -75,10 +89,11 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.5); 
     overflow: auto;
 }
 
+/* Popup Content Styles */
 .popup-content {
     background-color: #fefefe;
     margin: 10% auto;
@@ -91,6 +106,7 @@ body {
     overflow-y: auto; 
 }
 
+/* Close Button Styles */
 .close {
     color: #aaa;
     float: right;
@@ -105,18 +121,21 @@ body {
     cursor: pointer;
 }
 
-
+/* Popup Form Heading Styles */
 .popup-form h2 {
     margin-top: 0;
 }
 
+/* Popup Form Paragraph Styles */
 .popup-form p {
     margin-bottom: 0;
 }
 
+/* Voice Select Styles */
 #voiceSelect {
     width: 100%; 
 }
+
 
 
 

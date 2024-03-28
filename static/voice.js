@@ -1,8 +1,11 @@
+// When the DOM content is loaded
 document.addEventListener("DOMContentLoaded", function() {
+    // Variable to track if text is currently being spoken
     let isSpeaking = false; 
 
-   
+    // Function to speak the provided text using the selected voice
     function speakText(text, selectedVoice) {
+        // Create a SpeechSynthesisUtterance object with the provided text
         var utterance = new SpeechSynthesisUtterance(text);
         utterance.voice = selectedVoice; 
         window.speechSynthesis.speak(utterance);
@@ -11,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
         };
     }
 
-
+    // Handle click event on the speak icon
     function handleSpeakIconClick(event, selectedVoice) {
         event.stopPropagation(); 
         var text = event.target.parentElement.querySelector(".text-to-speak").innerText; 
@@ -26,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-
+    // Get all speak icons and attach click event listener to each
     var speakIcons = document.querySelectorAll(".speak-icon");
     speakIcons.forEach(function(icon) {
         icon.addEventListener("click", function(event) {
@@ -35,10 +38,9 @@ document.addEventListener("DOMContentLoaded", function() {
             handleSpeakIconClick(event, selectedVoice);
         });
     });
-    
 
+    // When available voices change
     window.speechSynthesis.onvoiceschanged = function() {
-
         var voiceSelect = document.getElementById('voiceSelect');
         var voices = window.speechSynthesis.getVoices();
         voiceSelect.innerHTML = ''; 
@@ -49,10 +51,9 @@ document.addEventListener("DOMContentLoaded", function() {
             voiceSelect.appendChild(option);
         });
 
-
         var storedVoice = localStorage.getItem('selectedVoice');
         if (storedVoice) {
             voiceSelect.value = storedVoice;
         }
     };
-});
+}); 

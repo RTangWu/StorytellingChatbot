@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Title, external CSS stylesheets and JavaScript files -->
     <title>Storytelling Chatbot</title>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
@@ -10,7 +11,7 @@
     <script src="{{ url_for('static', filename='settings.js') }}"></script>
 </head> 
 <body>
-
+    <!-- Heading section -->
     <div class="heading-container custom-width">
         <div class="row justify-content-between align-items-center">
             <div class="col">
@@ -19,6 +20,7 @@
             </div>
         </div>
     </div>
+    <!-- Display quit message if provided -->
     {% if quit_msg %}
     <div class="quit-msg-container custom-width">
         <div id="quit-msg" class="mt-4 alert alert-danger">
@@ -26,6 +28,7 @@
         </div>
     </div>
     {% endif %}
+    <!-- Display swear word error message if detected -->
     {% if swear_word %}
     <div class="error-message-container custom-width">
         <div id="error-msg" class="mt-4 alert alert-danger">
@@ -34,6 +37,7 @@
     </div>
     {% endif %}
 
+    <!-- Popup for Readme on how to use the chatbot -->
     <div id="guidePopup" class="popup-form">
         <div class="popup-content">
             <span class="close" onclick="closeGuidePopup()">&times;</span>
@@ -51,6 +55,7 @@
         </div>
     </div>
 
+    <!-- Popup for setting form -->
     <div id="settingsPopup" class="popup-form">
         <div class="popup-content">
             <span class="close" onclick="closeSettingsPopup()">&times;</span>
@@ -67,8 +72,7 @@
             </form>
         </div>
     </div>
-
-
+<!--card box display the story -->
     <div class="container custom-width">
         <div id="content">
             <div class="card mb-3">
@@ -93,16 +97,18 @@
             {% endfor %}
         </div>
     </div>
-<div class="alert-message">
-    {% if error_message %}
-    <div class="error-message-container custom-width">
-        <div id="error-msg" class="mt-4 alert alert-danger">
-            {{ error_message }}
+    <!-- Display error message if provided -->
+    <div class="alert-message">
+        {% if error_message %}
+        <div class="error-message-container custom-width">
+            <div id="error-msg" class="mt-4 alert alert-danger">
+                {{ error_message }}
+            </div>
         </div>
+        {% endif %}
     </div>
-    {% endif %}
-</div>
         
+    <!-- Input form, read me page and the setting page  -->
     <form method="post" id="input-form" class="fixed-form custom-width"> 
         <div class="row justify-content-center"> 
             <div class="col-0" onmouseover="showClickMode()" style="padding-top: 6px;">
@@ -126,8 +132,8 @@
             <input type="hidden" name="chat_history" value="{{ item.speaker }},{{ item.text }}">
         {% endfor %}
     </form>
- 
 
+    <!-- When create next part of story then scrolling to bottom of the page -->
     <script>
         function scrollToBottom() {
             window.scrollTo(0, document.body.scrollHeight);
