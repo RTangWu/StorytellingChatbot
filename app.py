@@ -5,36 +5,36 @@ import re
 
 app = Flask(__name__)
 
+#alternative url if the deual URL not work please pick from here
+#API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1"
+#API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-v0.1"
+#API_URL = "https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1"
+
+
 # API endpoint for the chatbot model
-API_URL = "https://api-inference.huggingface.co/models/openchat/openchat-3.5-0106"
+API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
 # Headers for authentication
 headers = {"Authorization": "Bearer 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"}
-
 # Questions asked to the user
 questions = [
     "What is the title of the story?",
     "Who is the main character of the story?",
     "What type of story would you like (e.g., adventure, romantic, mystery)?"
 ]
-
 # List to store user answers
 answers = []
-
 # Function to query the chatbot model
 def query_model(prompt):
     payload = {"inputs": prompt}
     response = requests.post(API_URL, headers=headers, json=payload)
     return response.json()
-
 # Function to generate a prompt for the chatbot
 def generate_prompt(answers):
     title, character, story_type = answers['title'], answers['character'], answers['story_type']
     return f"Tell me the {story_type} story titled '{title}' about {character}."
-
 # Function to check if a given text is a chatbot prompt
 def is_chatbot_prompt(text):
     return re.match(r"Tell me the '[a-zA-Z\s]+' story titled '[a-zA-Z\s]+' about '[a-zA-Z\s]+'", text.strip())
-
 # Flask route for handling chat interactions
 @app.route("/", methods=["GET", "POST"])
 def chat():
@@ -52,18 +52,15 @@ def chat():
         for entry in chat_history_str:
             speaker, text = entry.split(",", 1)
             chat_history.append({"speaker": speaker, "text": text})
-
         # Check for profanity in user input
         if profanity.contains_profanity(user_input):
             answers = []
             return render_template("index.html", chat_history=[], questions=questions, swear_word="We don't accept inappropriate language. Conversation reset. Please input again.")
-
         # Handle quit command
         if user_input == 'quit':
             answers = []
             return render_template("index.html", chat_history=[], questions=questions, quit_msg="Goodbye!")
-
-        # Handle continue command
+         # Handle continue command
         if user_input == 'continue':
             if len(answers) < len(questions):
                 error_message = "Can't generate the story without providing more details. Please answer all questions."
@@ -76,8 +73,7 @@ def chat():
                 generated_text = generated_text.replace(chat_history[-2]["text"], "").strip()
                 chat_history.append({"speaker": "chatbot", "text": generated_text})
             return render_template("index.html", chat_history=chat_history, questions=questions)
-
-        # Handle user answers to questions
+        # when all the question have been answer then only allow the user type quit or continue to block other input.
         if len(answers) < len(questions):
             answers.append(user_input)
             if len(answers) < len(questions):
@@ -92,11 +88,12 @@ def chat():
                 chat_history.append({"speaker": "user", "text": user_input})
                 chat_history.append({"speaker": "chatbot", "text": generated_text})
         else:
+            #If the user input invalid input show this error message
             if not is_chatbot_prompt(chat_history[-1]["text"]):
                 if user_input.lower() == 'continue':
                     chat_history.append({"speaker": "user", "text": user_input})
                 else:
-                    return render_template("index.html", chat_history=chat_history, questions=questions, error_message="Invalid input. If you want to read the next part of the story please type 'continue', or If you want to start a new chat, Please type 'quit' into the chatbot.")
+                    return render_template("index.html", chat_history=chat_history, questions=questions, error_message="Invalid input. If you want to start a new chat, Please type 'quit' into the chatbot or type 'continue' to generate the next part of story.")
 
 
         chat_history_display = [entry for entry in chat_history if entry['speaker'] == 'user' or not is_chatbot_prompt(entry['text'])]
