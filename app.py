@@ -5,7 +5,7 @@ import re
 
 app = Flask(__name__)
 
-#alternative url if the deual URL not work please pick from here
+#alternative url if the default URL not work please pick one from here to run the application
 #API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1"
 #API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-v0.1"
 #API_URL = "https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1"
