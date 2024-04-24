@@ -25,7 +25,7 @@ questions = [
 answers = []
 # Function to query the chatbot model
 def query_model(prompt):
-    payload = {"inputs": prompt}
+    payload = {"inputs": prompt, "options": {"max_new_tokens": 250,"temperature":100, "max_time":120 }}
     response = requests.post(API_URL, headers=headers, json=payload)
     return response.json()
 # Function to generate a prompt for the chatbot
