@@ -14,7 +14,7 @@ app = Flask(__name__)
 # API endpoint for the chatbot model
 API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
 # Headers for authentication
-headers = {"Authorization": "Bearer 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"}
+headers = {"Authorization": "Bearer *******************************"}
 # Questions asked to the user
 questions = [
     "What is the title of the story?",
